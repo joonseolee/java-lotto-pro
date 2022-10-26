@@ -20,7 +20,7 @@ class StringTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"1,"})
+    @ValueSource(strings = {"1,", "1"})
     @DisplayName("숫자 1개가 있는 문자를 , 자를때 1개 숫자 문자를 가진 배열이 나온다.")
     void whenSplitText_thenOneNumber(String text) {
         String[] numbers = text.split(",");
@@ -29,13 +29,12 @@ class StringTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"(1,2)", "(1,)"})
+    @CsvSource(value = {"(1,2):1,2", "(1,4):1,4"}, delimiter = ':')
     @DisplayName("숫자 1개가 있는 문자를 , 자를때 1개 숫자 문자를 가진 배열이 나온다.")
-    void givenTextWithParentheses_whenSubstringAndSplit_thenNumbers(String text) {
-        String textWithoutParentheses = text.substring(1, text.length() - 2);
-        String[] numbers = textWithoutParentheses.split(",");
+    void givenTextWithParentheses_whenSubstringAndSplit_thenNumbers(String text, String expected) {
+        String textWithoutParentheses = text.substring(1, text.length() - 1);
 
-        assertThat(numbers).containsExactly("1");
+        assertThat(textWithoutParentheses).isEqualTo(expected);
     }
 
     @ParameterizedTest

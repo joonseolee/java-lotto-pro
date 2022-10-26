@@ -27,7 +27,7 @@ class SetTest {
     @DisplayName("numbers 의 사이즈가 3 으로 나온다.")
     void whenNumbersSize_thenThree() {
         int expectedSize = 3;
-        assertThat(numbers.size()).isEqualTo(expectedSize);
+        assertThat(numbers).hasSize(expectedSize);
     }
 
     @ParameterizedTest
